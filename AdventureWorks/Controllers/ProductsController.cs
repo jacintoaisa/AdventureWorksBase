@@ -6,24 +6,33 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AdventureWorks.Models;
+using AdventureWorks.Services;
 
 namespace AdventureWorks.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly AdventureWorks2016Context _context;
+        private readonly ISpecificacionFactory _factoria;
 
-        public ProductsController(AdventureWorks2016Context context)
+        public ProductsController(AdventureWorks2016Context context,
+            ISpecificacionFactory factoria)
         {
             _context = context;
+            _factoria = factoria;
         }
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
+
             var adventureWorks2016Context = _context.Products.Include(p => p.ProductModel).Include(p => p.ProductSubcategory).Include(p => p.SizeUnitMeasureCodeNavigation).Include(p => p.WeightUnitMeasureCodeNavigation);
             var consulta = _context.Products;
-            return View(await consulta.ToListAsync());
+            //var elemento = _factoria.dameInstancia(EnumeracionEjercicios.Ejercicio1);
+            //var elemento = _factoria.dameInstancia(EnumeracionEjercicios.Ejercicio2);
+            var elemento = _factoria.dameInstancia(EnumeracionEjercicios.Ejercicio3);
+            var consultaFinal = (elemento as IProductoQuery).dameProductos(consulta);
+            return View(consultaFinal);
         }
 
         // GET: Products/Details/5

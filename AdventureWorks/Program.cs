@@ -1,6 +1,7 @@
 using AdventureWorks.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
+using AdventureWorks.Services;
 
 namespace AdventureWorks
 {
@@ -14,6 +15,7 @@ namespace AdventureWorks
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<AdventureWorks2016Context>
                 (options => options.UseSqlServer("'server=(localdb)\\MSSQLLocalDB;database=AdventureWorks2016;Integrated Security=True ' Microsoft.EntityFrameworkCore.SqlServer - o Models"));
+            builder.Services.AddScoped<ISpecificacionFactory, FactoriaDeEspecificaciones>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
