@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using AdventureWorks.ViewModel;
 
 namespace AdventureWorks.Models;
 
@@ -3264,4 +3265,8 @@ public partial class AdventureWorks2016Context : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+public DbSet<AdventureWorks.ViewModel.SubCategoriaViewModel> SubCategoriaViewModel { get; set; } = default!;
+
+public DbSet<AdventureWorks.ViewModel.ClaseResumen> ClaseResumen { get; set; } = default!;
 }

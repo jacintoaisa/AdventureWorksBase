@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AdventureWorks.Models;
 using AdventureWorks.Services;
+using AdventureWorks.ViewModels;
 
 namespace AdventureWorks.Controllers
 {
@@ -14,12 +15,18 @@ namespace AdventureWorks.Controllers
     {
         private readonly AdventureWorks2016Context _context;
         private readonly ISpecificacionFactory _factoria;
+        //private readonly IProductoPorColorBuilder _builderProducto;
+        private readonly ICreaListaPorColorViewModel _builderLista;
 
         public ProductsController(AdventureWorks2016Context context,
-            ISpecificacionFactory factoria)
+            ISpecificacionFactory factoria,
+            //IProductoPorColorBuilder builderProducto,
+            ICreaListaPorColorViewModel builderLista)
         {
             _context = context;
             _factoria = factoria;
+            //_builderProducto = builderProducto;
+            _builderLista = builderLista;
         }
 
         // GET: Products
@@ -34,6 +41,22 @@ namespace AdventureWorks.Controllers
             var consultaFinal = (elemento as IProductoQuery).dameProductos(consulta);
             return View(consultaFinal);
         }
+
+        public async Task<IActionResult> FiltradoPorColor()
+        {
+            return View(this._builderLista.dameTodosLosColores());;
+        }
+        // GET: Products
+        public async Task<IActionResult> IndexEjercicio01()
+        {
+
+            var adventureWorks2016Context = _context.Products.Include(p => p.ProductModel).Include(p => p.ProductSubcategory).Include(p => p.SizeUnitMeasureCodeNavigation).Include(p => p.WeightUnitMeasureCodeNavigation);
+            var consulta = _context.Products;
+            var elemento = _factoria.dameInstancia(EnumeracionEjercicios.Ejercicio1);
+            var consultaFinal = (elemento as IProductoQuery).dameProductos(consulta);
+            return View(consultaFinal);
+        }
+
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)

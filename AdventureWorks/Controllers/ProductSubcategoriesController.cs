@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AdventureWorks.Models;
+using AdventureWorks.ViewModel;
 
 namespace AdventureWorks.Controllers
 {
@@ -23,6 +24,21 @@ namespace AdventureWorks.Controllers
         {
             var adventureWorks2016Context = _context.ProductSubcategories.Include(p => p.ProductCategory);
             return View(await adventureWorks2016Context.ToListAsync());
+        }
+
+        public async Task<IActionResult> Compacta()
+        {
+            var resultado = from SubCat in _context.ProductSubcategories
+                join Cat in _context.ProductCategories
+                    on SubCat.ProductCategoryId equals Cat.ProductCategoryId
+                select new SubCategoriaViewModel()
+                {
+                    Id = SubCat.ProductSubcategoryId,
+                    NombreSubcategoria = SubCat.Name,
+                    NombreCategoria = Cat.Name
+                };
+
+            return View(resultado);
         }
 
         // GET: ProductSubcategories/Details/5
