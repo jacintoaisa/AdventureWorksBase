@@ -15,11 +15,11 @@ namespace AdventureWorks.ViewModels
         }
         public List<ProductoPorColorViewModel> dameTodosLosColores()
         {
-            var ProductosDistintos = from p in context.Products group(p) by p.Color into g
+            var ProductosDistintos = from p in context.Products.ToList() group(p) by p.Color into g
                 select g;
 
             List<ProductoPorColorViewModel> coleccionADevolver = new();
-            foreach (var _colorDistinto in ProductosDistintos.ToList())
+            foreach (var _colorDistinto in ProductosDistintos)
             {
                 ProductoPorColorViewModel ElementoAPoner = 
                     new() { Color = _colorDistinto.Key , VentasDeProducto = 
