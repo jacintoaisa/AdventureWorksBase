@@ -32,9 +32,10 @@ namespace AdventureWorks.Controllers
         public async Task<IActionResult> Index()
         {
             var consulta = _repositorio.DameTodos();
-            var elemento = _factoria.dameInstancia(EnumeracionEjercicios.Ejercicio3);
-            var consultaFinal = (elemento as IProductoQuery).dameProductos(consulta);
-            return View(consultaFinal);
+            //var elemento = _factoria.dameInstancia(EnumeracionEjercicios.Ejercicio3);
+            //var consultaFinal = (elemento as IProductoQuery).dameProductos(consulta);
+            //return View(consultaFinal);
+            return View(consulta);
         }
 
         public async Task<IActionResult> FiltradoPorColor()

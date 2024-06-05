@@ -20,7 +20,7 @@ namespace AdventureWorks
             builder.Services.AddScoped<ISpecificacionFactory, FactoriaDeEspecificaciones>();
             builder.Services.AddScoped<IProductoPorColorBuilder, ProductoPorColor01>();
             builder.Services.AddScoped<ICreaListaPorColorViewModel, CreaListaPorColorViewModel > ();
-            builder.Services.AddScoped<IProductoRepositorio, EFProductoRepositorio>();
+            builder.Services.AddScoped<IProductoRepositorio, FakeProductRepositorio>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
