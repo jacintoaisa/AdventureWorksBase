@@ -28,8 +28,6 @@ namespace AdventureWorks.ViewModels
                 coleccionADevolver.Add(ElementoAPoner);
             }
             return coleccionADevolver;
-
-
         }
     }
 }

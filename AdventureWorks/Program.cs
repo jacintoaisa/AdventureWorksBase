@@ -2,6 +2,7 @@ using AdventureWorks.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 using AdventureWorks.Services;
+using AdventureWorks.Services.Repositorio;
 using AdventureWorks.ViewModels;
 
 namespace AdventureWorks
@@ -19,6 +20,7 @@ namespace AdventureWorks
             builder.Services.AddScoped<ISpecificacionFactory, FactoriaDeEspecificaciones>();
             builder.Services.AddScoped<IProductoPorColorBuilder, ProductoPorColor01>();
             builder.Services.AddScoped<ICreaListaPorColorViewModel, CreaListaPorColorViewModel > ();
+            builder.Services.AddScoped<IProductoRepositorio, EFProductoRepositorio>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
