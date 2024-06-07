@@ -12,9 +12,9 @@ namespace CodeFirst.Controllers
 {
     public class AutoresController : Controller
     {
-        private readonly IAutorRepositorio _context;
+        private readonly IGenericRepositorio<Autor> _context;
 
-        public AutoresController(IAutorRepositorio context)
+        public AutoresController(IGenericRepositorio<Autor> context)
         {
             _context = context;
         }

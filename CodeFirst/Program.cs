@@ -6,8 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<LibreriaContext>();
-builder.Services.AddScoped<IAutorRepositorio, FakeAutorRepositorio>();
-builder.Services.AddScoped<ILibroRepositorio, FakeLibroRepositorio>();
+builder.Services.AddScoped(typeof(IGenericRepositorio<>), typeof(EFGenericRepositorio<>));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
