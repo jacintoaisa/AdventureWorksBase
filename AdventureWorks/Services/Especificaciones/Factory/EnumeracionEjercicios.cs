@@ -1,4 +1,4 @@
-﻿namespace AdventureWorks.Services
+﻿namespace AdventureWorks.Services.Especificaciones.Factory
 {
     public enum EnumeracionEjercicios
     {

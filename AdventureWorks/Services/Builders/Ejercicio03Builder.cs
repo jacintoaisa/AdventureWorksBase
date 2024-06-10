@@ -1,6 +1,9 @@
 ﻿using AdventureWorks.Models;
+using AdventureWorks.Services.Especificaciones.Combinada;
+using AdventureWorks.Services.Especificaciones.Factory;
+using AdventureWorks.Services.Especificaciones.Simples;
 
-namespace AdventureWorks.Services
+namespace AdventureWorks.Services.Builders
 {
     public class Ejercicio03Builder : IProductSpecification, IProductoQuery
     {
@@ -10,7 +13,7 @@ namespace AdventureWorks.Services
         {
             IProductSpecification PorInicio = new NameComienzaSpecification()
             {
-                letras = ["A","B","C"]
+                letras = ["A", "B", "C"]
             };
             IProductSpecification PorContenido = new NameContieneSpecification()
             {
@@ -24,7 +27,7 @@ namespace AdventureWorks.Services
         }
         public IEnumerable<Product> dameProductos(IEnumerable<Product> products)
         {
-            return products.Where(x => especificacion.isValid(x)).OrderBy(x => x.SellStartDate).ThenBy(x=>x.Color);
+            return products.Where(x => especificacion.isValid(x)).OrderBy(x => x.SellStartDate).ThenBy(x => x.Color);
         }
         public bool isValid(Product _producto)
         {

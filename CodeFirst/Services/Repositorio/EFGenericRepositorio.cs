@@ -7,21 +7,25 @@ namespace CodeFirst.Services.Repositorio
     public class EFGenericRepositorio<T> : IGenericRepositorio<T> where T : class
     {
         private readonly LibreriaContext _context = new();  
-        public List<T> DameTodos()
+        public async Task<List<T>> DameTodos()
         {
-            return _context.Set<T>().AsNoTracking().ToList();
+            return await _context.Set<T>().ToListAsync();
         }
+
+
+        
 
         public T? DameUno(int Id)
         {
             return _context.Set<T>().Find(Id);
         }
 
-        public bool Borrar(int Id)
+        public async Task<bool> Borrar(int Id)
         {
             var elemento = DameUno(Id);
             _context.Set<T>().Remove(elemento);
             _context.SaveChanges();
+            //return Task.FromResult(true);
             return true;
         }
 
@@ -38,9 +42,11 @@ namespace CodeFirst.Services.Repositorio
             _context.SaveChanges();
         }
 
-        public List<T> Filtra(Expression<Func<T, bool>> predicado)
+        public IEnumerable<T> Filtra(Expression<Func<T, bool>> predicado)
         {
             return _context.Set<T>().Where<T>(predicado).ToList();
         }
+
+
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace AdventureWorks.Services
+﻿using AdventureWorks.Services.Especificaciones.Simples;
+
+namespace AdventureWorks.Services.Especificaciones.Factory
 {
     public interface ISpecificacionFactory
     {

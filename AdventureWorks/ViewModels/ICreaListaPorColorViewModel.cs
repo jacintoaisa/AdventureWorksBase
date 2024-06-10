@@ -2,6 +2,6 @@
 {
     public interface ICreaListaPorColorViewModel
     {
-        List<ProductoPorColorViewModel> dameTodosLosColores();
+        Task<List<ProductoPorColorViewModel>> dameTodosLosColores();
     }
 }

@@ -1,6 +1,6 @@
 ﻿using AdventureWorks.Models;
 
-namespace AdventureWorks.Services
+namespace AdventureWorks.Services.Especificaciones.Factory
 {
     public interface IProductoQuery
     {

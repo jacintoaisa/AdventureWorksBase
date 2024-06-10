@@ -1,6 +1,7 @@
 ﻿using AdventureWorks.Models;
+using AdventureWorks.Services.Especificaciones.Simples;
 
-namespace AdventureWorks.Services
+namespace AdventureWorks.Services.Especificaciones.Combinada
 {
     public class AndSpecification : IProductSpecification
     {

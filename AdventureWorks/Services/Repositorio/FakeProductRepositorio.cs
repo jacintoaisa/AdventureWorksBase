@@ -53,9 +53,9 @@ namespace AdventureWorks.Services.Repositorio
             };
             listaProductos.Add(miProducto);
         }
-        public List<Product> DameTodos()
+        public async Task<List<Product>> DameTodos()
         {
-            return this.listaProductos;
+            return listaProductos;
         }
 
         public Product? DameUno(int Id)
@@ -65,7 +65,14 @@ namespace AdventureWorks.Services.Repositorio
 
         public bool BorrarProducto(int Id)
         {
-            return listaProductos.Remove(DameUno(Id));
+            Product? productoEncontrado = DameUno(Id);
+            if (productoEncontrado != null)
+            {
+                listaProductos.Remove(productoEncontrado);
+                return true;
+            }
+
+            return false;
         }
 
         public bool Agregar(Product product)

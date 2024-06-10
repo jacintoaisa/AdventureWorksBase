@@ -1,6 +1,9 @@
 ﻿using AdventureWorks.Models;
+using AdventureWorks.Services.Especificaciones.Combinada;
+using AdventureWorks.Services.Especificaciones.Factory;
+using AdventureWorks.Services.Especificaciones.Simples;
 
-namespace AdventureWorks.Services
+namespace AdventureWorks.Services.Builders
 {
     public class Ejercicio02Builder : IProductSpecification, IProductoQuery
     {
@@ -33,21 +36,21 @@ namespace AdventureWorks.Services
                 Spec1 = PorColor,
                 Spec2 = NoPorTerminacion
             };
-            this.especificacion = new AndSpecification()
+            especificacion = new AndSpecification()
             {
                 Spec1 = And01,
                 Spec2 = NotPorSubCategoria
-        };
-    }
+            };
+        }
 
-    public IEnumerable<Product> dameProductos(IEnumerable<Product> products)
-    {
-        return products.Where(x => especificacion.isValid(x)).OrderBy(x => x.Name);
+        public IEnumerable<Product> dameProductos(IEnumerable<Product> products)
+        {
+            return products.Where(x => especificacion.isValid(x)).OrderBy(x => x.Name);
+        }
+        public bool isValid(Product _producto)
+        {
+            return especificacion.isValid(_producto);
+        }
     }
-    public bool isValid(Product _producto)
-    {
-        return especificacion.isValid(_producto);
-    }
-}
 }
 

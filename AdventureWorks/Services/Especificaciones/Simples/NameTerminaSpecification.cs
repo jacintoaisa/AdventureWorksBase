@@ -1,7 +1,7 @@
 ﻿using System.CodeDom;
 using AdventureWorks.Models;
 
-namespace AdventureWorks.Services
+namespace AdventureWorks.Services.Especificaciones.Simples
 {
     public class NameTerminaSpecification : IProductSpecification
     {

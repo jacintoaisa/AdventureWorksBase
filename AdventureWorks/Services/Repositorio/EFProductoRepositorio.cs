@@ -6,9 +6,9 @@ namespace AdventureWorks.Services.Repositorio
     public class EFProductoRepositorio : IProductoRepositorio
     {
         private readonly AdventureWorks2016Context _context = new();  
-        public List<Product> DameTodos()
+        public async Task<List<Product>> DameTodos()
         {
-            return _context.Products.AsNoTracking().ToList();
+            return await _context.Products.ToListAsync();
 
         }
 

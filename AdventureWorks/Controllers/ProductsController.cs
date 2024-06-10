@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AdventureWorks.Models;
-using AdventureWorks.Services;
 using AdventureWorks.Services.Repositorio;
 using AdventureWorks.ViewModels;
+using AdventureWorks.Services.Especificaciones.Factory;
 
 namespace AdventureWorks.Controllers
 {
@@ -31,22 +31,20 @@ namespace AdventureWorks.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var consulta = _repositorio.DameTodos();
-            //var elemento = _factoria.dameInstancia(EnumeracionEjercicios.Ejercicio3);
-            //var consultaFinal = (elemento as IProductoQuery).dameProductos(consulta);
+            var consulta = await _repositorio.DameTodos();
             //return View(consultaFinal);
             return View(consulta);
         }
 
         public async Task<IActionResult> FiltradoPorColor()
         {
-            return View(this._builderLista.dameTodosLosColores());;
+            return View(await this._builderLista.dameTodosLosColores()); ;
         }
         // GET: Products
         public async Task<IActionResult> IndexEjercicio01()
         {
 
-             var consulta = _repositorio.DameTodos();
+            var consulta = await _repositorio.DameTodos();
             var elemento = _factoria.dameInstancia(EnumeracionEjercicios.Ejercicio1);
             var consultaFinal = (elemento as IProductoQuery).dameProductos(consulta);
             return View(consultaFinal);
@@ -135,7 +133,7 @@ namespace AdventureWorks.Controllers
             {
                 try
                 {
-                    _repositorio.Modificar(product.ProductId,product);
+                    _repositorio.Modificar(product.ProductId, product);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -192,5 +190,7 @@ namespace AdventureWorks.Controllers
                 return true;
             }
         }
+
+
     }
 }

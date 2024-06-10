@@ -22,7 +22,7 @@ namespace CodeFirst.Controllers
         // GET: Autores
         public async Task<IActionResult> Index()
         {
-            return View(_context.DameTodos());
+            return View(await _context.DameTodos());
         }
 
         // GET: Autores/Details/5

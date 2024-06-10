@@ -1,9 +1,9 @@
 using AdventureWorks.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
-using AdventureWorks.Services;
 using AdventureWorks.Services.Repositorio;
 using AdventureWorks.ViewModels;
+using AdventureWorks.Services.Especificaciones.Factory;
 
 namespace AdventureWorks
 {

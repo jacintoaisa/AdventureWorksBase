@@ -5,7 +5,7 @@ namespace AdventureWorks.Services.Repositorio
 {
     public interface IProductoRepositorio
     {
-        List<Product> DameTodos();
+        Task<List<Product>> DameTodos();
         Product? DameUno(int Id);
         bool BorrarProducto(int Id);
         bool Agregar(Product product);

@@ -1,6 +1,6 @@
 ﻿using AdventureWorks.Models;
 
-namespace AdventureWorks.Services
+namespace AdventureWorks.Services.Especificaciones.Simples
 {
     public class NameContieneSpecification : IProductSpecification
     {

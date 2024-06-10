@@ -1,7 +1,7 @@
 ﻿using AdventureWorks.Models;
 using Microsoft.Build.Logging;
 
-namespace AdventureWorks.Services
+namespace AdventureWorks.Services.Especificaciones.Simples
 {
     public class ProductColorSpecification : IProductSpecification
     {

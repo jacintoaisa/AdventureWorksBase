@@ -1,6 +1,9 @@
 ﻿using AdventureWorks.Models;
+using AdventureWorks.Services.Especificaciones.Combinada;
+using AdventureWorks.Services.Especificaciones.Factory;
+using AdventureWorks.Services.Especificaciones.Simples;
 
-namespace AdventureWorks.Services
+namespace AdventureWorks.Services.Builders
 {
     public class Ejercicio01Builder : IProductSpecification, IProductoQuery
     {

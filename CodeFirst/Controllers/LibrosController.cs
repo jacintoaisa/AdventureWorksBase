@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CodeFirst.Models;
 using CodeFirst.Services.Repositorio;
+using CodeFirst.Services.Specification;
+using Microsoft.CodeAnalysis.Operations;
 
 namespace CodeFirst.Controllers
 {
@@ -24,7 +26,7 @@ namespace CodeFirst.Controllers
         // GET: Libros
         public async Task<IActionResult> Index()
         {
-            return View(_context.DameTodos());
+            return View(await _context.DameTodos());
         }
 
         // GET: Libros/Details/5
@@ -41,13 +43,13 @@ namespace CodeFirst.Controllers
                 return NotFound();
             }
 
-            return View(libro);
+            return Ok(libro);
         }
 
         // GET: Libros/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["AutorId"] = new SelectList(_autorContext.DameTodos(), "Id", "NombreCompleto");
+            ViewData["AutorId"] = new SelectList(await _autorContext.DameTodos(), "Id", "NombreCompleto");
             return View();
         }
 
@@ -103,7 +105,7 @@ namespace CodeFirst.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LibroExists(libro.Id))
+                    if (!LibroExists(libro.Id).Result)
                     {
                         return NotFound();
                     }
@@ -150,9 +152,22 @@ namespace CodeFirst.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool LibroExists(int id)
-        {
-            return _context.DameTodos().Any(e => e.Id == id);
+        private async Task<bool> LibroExists(int id)
+        { 
+            var elemento = await _context.DameTodos();
+            return (elemento.Any(x=>x.Id == id));
         }
+
+        public bool EsValidoPorPagina(Libro element)
+        {
+            return (element.NumPaginas > 10);
+        }
+
+        public async Task<IActionResult> Tochos()
+        {
+            var filtrado = _context.Filtra(x => x.NumPaginas > 2);
+            return View("Index",filtrado);
+        }
+
     }
 }

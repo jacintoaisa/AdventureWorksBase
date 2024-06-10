@@ -13,9 +13,9 @@ namespace AdventureWorks.ViewModels
             this.context = context;
             this.builder = builder;
         }
-        public List<ProductoPorColorViewModel> dameTodosLosColores()
+        public async Task<List<ProductoPorColorViewModel>> dameTodosLosColores()
         {
-            var ProductosDistintos = from p in context.Products.ToList() group(p) by p.Color into g
+            var ProductosDistintos = from p in context.Products group(p) by p.Color into g
                 select g;
 
             List<ProductoPorColorViewModel> coleccionADevolver = new();
