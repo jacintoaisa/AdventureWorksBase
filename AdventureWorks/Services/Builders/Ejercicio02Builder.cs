@@ -13,23 +13,23 @@ namespace AdventureWorks.Services.Builders
         {
             IProductSpecification PorColor = new ProductColorSpecification()
             {
-                colores = ["RED"]
+                Colores = ["RED"]
             };
             IProductSpecification PorTerminacion = new NameTerminaSpecification()
             {
-                letras = ["A", "E", "I", "O", "U", "X"]
+                Letras = ["A", "E", "I", "O", "U", "X"]
             };
             IProductSpecification NoPorTerminacion = new NotSpecification()
             {
-                especificacion = PorTerminacion
+                Especificacion = PorTerminacion
             };
             IProductSpecification PorSubCategoria = new SubCategoriaSpecificacion()
             {
-                subcategorias = [2]
+                Subcategorias = [2]
             };
             IProductSpecification NotPorSubCategoria = new NotSpecification()
             {
-                especificacion = PorSubCategoria
+                Especificacion = PorSubCategoria
             };
             IProductSpecification And01 = new AndSpecification()
             {
@@ -43,13 +43,13 @@ namespace AdventureWorks.Services.Builders
             };
         }
 
-        public IEnumerable<Product> dameProductos(IEnumerable<Product> products)
+        public IEnumerable<Product> DameProductos(IEnumerable<Product> products)
         {
-            return products.Where(x => especificacion.isValid(x)).OrderBy(x => x.Name);
+            return products.Where(x => especificacion.IsValid(x)).OrderBy(x => x.Name);
         }
-        public bool isValid(Product _producto)
+        public bool IsValid(Product _producto)
         {
-            return especificacion.isValid(_producto);
+            return especificacion.IsValid(_producto);
         }
     }
 }

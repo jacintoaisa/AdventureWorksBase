@@ -10,19 +10,12 @@ using CodeFirst.Services.Repositorio;
 
 namespace CodeFirst.Controllers
 {
-    public class AutoresController : Controller
+    public class AutoresController(IGenericRepositorio<Autor> context) : Controller
     {
-        private readonly IGenericRepositorio<Autor> _context;
-
-        public AutoresController(IGenericRepositorio<Autor> context)
-        {
-            _context = context;
-        }
-
         // GET: Autores
         public async Task<IActionResult> Index()
         {
-            return View(await _context.DameTodos());
+            return View(await context.DameTodos());
         }
 
         // GET: Autores/Details/5
@@ -33,7 +26,7 @@ namespace CodeFirst.Controllers
                 return NotFound();
             }
 
-            var autor = await _context.DameUno((int)id);
+            var autor = await context.DameUno((int)id);
             if (autor == null)
             {
                 return NotFound();
@@ -56,7 +49,7 @@ namespace CodeFirst.Controllers
         public async Task<IActionResult> Create([Bind("Id,NombreCompleto")] Autor autor)
         {
 
-            await _context.Agregar(autor);
+            await context.Agregar(autor);
             return RedirectToAction(nameof(Index));
         }
 
@@ -68,7 +61,7 @@ namespace CodeFirst.Controllers
                 return NotFound();
             }
 
-            var autor = await _context.DameUno((int)id);
+            var autor = await context.DameUno((int)id);
             if (autor == null)
             {
                 return NotFound();
@@ -92,7 +85,7 @@ namespace CodeFirst.Controllers
             {
                 try
                 {
-                    await _context.Modificar(autor.Id, autor);
+                    await context.Modificar(autor.Id, autor);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -118,7 +111,7 @@ namespace CodeFirst.Controllers
                 return NotFound();
             }
 
-            var autor = await _context.DameUno((int)id);
+            var autor = await context.DameUno((int)id);
             if (autor == null)
             {
                 return NotFound();
@@ -132,10 +125,10 @@ namespace CodeFirst.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var autor = await _context.DameUno(id);
+            var autor = await context.DameUno(id);
             if (autor != null)
             {
-                await _context.Borrar(id);
+                await context.Borrar(id);
             }
 
             return RedirectToAction(nameof(Index));
@@ -143,7 +136,7 @@ namespace CodeFirst.Controllers
 
         private bool AutorExists(int id)
         {
-            if (_context.DameUno(id) == null)
+            if (context.DameUno(id) == null)
                 return false;
             else
                 return true;

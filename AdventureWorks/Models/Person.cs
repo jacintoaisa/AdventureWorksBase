@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AdventureWorks.Models;
 
@@ -56,6 +57,7 @@ public partial class Person
     /// <summary>
     /// Additional contact information about the person stored in xml format. 
     /// </summary>
+    [StringLength(50)]
     public string? AdditionalContactInfo { get; set; }
 
     /// <summary>

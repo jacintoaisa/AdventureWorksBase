@@ -5,13 +5,13 @@ namespace AdventureWorks.Services.Especificaciones.Simples
 {
     public class NameTerminaSpecification : IProductSpecification
     {
-        public string[]? letras { set; get; }
+        public string[]? Letras { set; get; }
 
-        public bool isValid(Product _producto)
+        public bool IsValid(Product producto)
         {
-            if (letras != null)
+            if (Letras != null)
             {
-                return letras.Any(x => _producto.Name.ToUpper().EndsWith(x));
+                return Letras.Any(x => producto.Name.ToUpper().EndsWith(x));
             }
             else
             {

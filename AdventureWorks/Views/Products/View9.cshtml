@@ -28,10 +28,13 @@
                 @Html.DisplayFor(modelItem => item.NombreColor)
             </td>
             <td>
-                @foreach (var hijo in item.hijas)
+                @if (item.Hijas != null)
                 {
-                    @Html.DisplayForModel(hijo.Edad)
+                    @foreach (var hijo in item.Hijas)
+                    {
+                        @Html.DisplayForModel(hijo.Edad)
 
+                    }
                 }
             </td>
             <td>

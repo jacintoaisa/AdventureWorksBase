@@ -23,7 +23,7 @@ namespace AdventureWorks.Services.Repositorio
             if (producto != null)
             {
                 _context.Products.Remove(producto);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return true;
             }
             else

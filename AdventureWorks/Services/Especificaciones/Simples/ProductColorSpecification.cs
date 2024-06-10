@@ -5,11 +5,11 @@ namespace AdventureWorks.Services.Especificaciones.Simples
 {
     public class ProductColorSpecification : IProductSpecification
     {
-        public string[]? colores { get; set; }
-        public bool isValid(Product producto)
+        public string[]? Colores { get; set; }
+        public bool IsValid(Product producto)
         {
-            if ((producto.Color is not null) && (colores is not null))
-                return colores.Any(producto.Color.ToUpper().Contains);
+            if ((producto.Color is not null) && (Colores is not null))
+                return Colores.Any(producto.Color.ToUpper().Contains);
             else
                 return false;
         }

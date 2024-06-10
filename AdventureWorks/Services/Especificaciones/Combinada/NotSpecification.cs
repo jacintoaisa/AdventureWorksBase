@@ -5,17 +5,17 @@ namespace AdventureWorks.Services.Especificaciones.Combinada
 {
     public class NotSpecification : IProductSpecification
     {
-        public IProductSpecification? especificacion { get; set; }
+        public IProductSpecification? Especificacion { get; set; }
 
-        public bool isValid(Product _producto)
+        public bool IsValid(Product producto)
         {
-            if (especificacion == null)
+            if (Especificacion == null)
             {
                 return false;
             }
             else
             {
-                return !especificacion.isValid(_producto);
+                return !Especificacion.IsValid(producto);
             }
         }
     }

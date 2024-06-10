@@ -4,7 +4,7 @@ namespace AdventureWorks.Services.Repositorio
 {
     public class FakeProductRepositorio : IProductoRepositorio
     {
-        private List<Product> listaProductos = new();
+        private readonly List<Product> listaProductos = [];
 
         public FakeProductRepositorio()
         {

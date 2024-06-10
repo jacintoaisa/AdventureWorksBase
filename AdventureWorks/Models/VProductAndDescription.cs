@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace AdventureWorks.Models;
+﻿namespace AdventureWorks.Models;
 
 public partial class VProductAndDescription
 {

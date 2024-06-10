@@ -5,10 +5,10 @@ namespace AdventureWorks.Services.Especificaciones.Simples
     public class ListPriceSpecification : IProductSpecification
     {
         public int Price { get; set; }
-        public bool isValid(Product _producto)
+        public bool IsValid(Product producto)
         {
-            if (_producto is not null)
-                return _producto.ListPrice >= Price;
+            if (producto is not null)
+                return producto.ListPrice >= Price;
             else
                 return false;
         }

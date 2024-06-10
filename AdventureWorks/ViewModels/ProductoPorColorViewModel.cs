@@ -11,6 +11,6 @@ namespace AdventureWorks.ViewModels
     {
         public int ProductoVentaId { get; set; }
         public string? ProductName { get; set; }
-        public int unidadesVendidas { get; set; }
+        public int UnidadesVendidas { get; set; }
     }
 }

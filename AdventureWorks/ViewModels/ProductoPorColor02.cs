@@ -22,7 +22,7 @@ namespace AdventureWorks.ViewModels
                 {   
                     ProductName = p.Name,
                     ProductoVentaId = p.ProductId,
-                    unidadesVendidas = l.OrderQty
+                    UnidadesVendidas = l.OrderQty
                 };
             return resultado.ToList();
 

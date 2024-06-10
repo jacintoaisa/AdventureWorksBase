@@ -12,43 +12,33 @@ using AdventureWorks.Services.Especificaciones.Factory;
 
 namespace AdventureWorks.Controllers
 {
-    public class ProductsController : Controller
+    public class ProductsController(
+        ISpecificacionFactory factoria,
+        ICreaListaPorColorViewModel builderLista,
+        IProductoRepositorio repositorio)
+        : Controller
     {
-
-        private readonly ISpecificacionFactory _factoria;
-        private readonly ICreaListaPorColorViewModel _builderLista;
-        private readonly IProductoRepositorio _repositorio;
-        public ProductsController(
-            ISpecificacionFactory factoria,
-            ICreaListaPorColorViewModel builderLista,
-            IProductoRepositorio repositorio)
-        {
-            _factoria = factoria;
-            _builderLista = builderLista;
-            _repositorio = repositorio;
-        }
-
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var consulta = await _repositorio.DameTodos();
+            var consulta = await repositorio.DameTodos();
             //return View(consultaFinal);
             return View(consulta);
         }
 
         public async Task<IActionResult> FiltradoPorColor()
         {
-            return View(await this._builderLista.dameTodosLosColores()); ;
+            return View(await builderLista.dameTodosLosColores()); ;
         }
         // GET: Products
         public async Task<IActionResult> IndexEjercicio01()
         {
 
-            var consulta = await _repositorio.DameTodos();
-            var elemento = _factoria.dameInstancia(EnumeracionEjercicios.Ejercicio1);
+            var consulta = await repositorio.DameTodos();
+            var elemento = factoria.DameInstancia(EnumeracionEjercicios.Ejercicio1);
             if (elemento is not null)
             {
-                var consultaFinal = (elemento as IProductoQuery)!.dameProductos(consulta);
+                var consultaFinal = (elemento as IProductoQuery)!.DameProductos(consulta);
                 return View(consultaFinal);
             }
 
@@ -64,7 +54,7 @@ namespace AdventureWorks.Controllers
                 return NotFound();
             }
 
-            var product = await _repositorio.DameUno((int)id);
+            var product = await repositorio.DameUno((int)id);
             if (product == null)
             {
                 return NotFound();
@@ -92,7 +82,7 @@ namespace AdventureWorks.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _repositorio.Agregar(product);
+                await repositorio.Agregar(product);
                 return RedirectToAction(nameof(Index));
             }
             //ViewData["ProductModelId"] = new SelectList(_context.ProductModels, "ProductModelId", "ProductModelId", product.ProductModelId);
@@ -110,7 +100,7 @@ namespace AdventureWorks.Controllers
                 return NotFound();
             }
 
-            var product = await _repositorio.DameUno((int)id);
+            var product = await repositorio.DameUno((int)id);
             if (product == null)
             {
                 return NotFound();
@@ -138,7 +128,7 @@ namespace AdventureWorks.Controllers
             {
                 try
                 {
-                    await _repositorio.Modificar(product.ProductId, product);
+                    await repositorio.Modificar(product.ProductId, product);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -168,7 +158,7 @@ namespace AdventureWorks.Controllers
                 return NotFound();
             }
 
-            var product = await _repositorio.DameUno((int)id);
+            var product = await repositorio.DameUno((int)id);
             if (product == null)
             {
                 return NotFound();
@@ -182,13 +172,13 @@ namespace AdventureWorks.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _repositorio.BorrarProducto((int)id);
+            await repositorio.BorrarProducto((int)id);
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProductExists(int id)
         {
-            if (_repositorio.DameUno((int)id) == null)
+            if (repositorio.DameUno((int)id) == null)
                 return false;
             else
             {

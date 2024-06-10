@@ -6,7 +6,7 @@ namespace AdventureWorks.Models;
 /// <summary>
 /// Individual products associated with a specific purchase order. See PurchaseOrderHeader.
 /// </summary>
-public partial class PurchaseOrderDetail
+public class PurchaseOrderDetail
 {
     /// <summary>
     /// Primary key. Foreign key to PurchaseOrderHeader.PurchaseOrderID.

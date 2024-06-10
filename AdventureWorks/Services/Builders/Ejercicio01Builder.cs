@@ -7,32 +7,32 @@ namespace AdventureWorks.Services.Builders
 {
     public class Ejercicio01Builder : IProductSpecification, IProductoQuery
     {
-        private IProductSpecification especificacion;
+        private IProductSpecification _especificacion;
         public Ejercicio01Builder()
         {
-            IProductSpecification PorColor = new ProductColorSpecification()
+            IProductSpecification porColor = new ProductColorSpecification()
             {
-                colores = ["RED", "GREEN"]
+                Colores = ["RED", "GREEN"]
             };
-            IProductSpecification PorDinero = new ListPriceSpecification()
+            IProductSpecification porDinero = new ListPriceSpecification()
             {
                 Price = 1
             };
-            especificacion = new AndSpecification()
+            _especificacion = new AndSpecification()
             {
-                Spec1 = PorColor,
-                Spec2 = PorDinero
+                Spec1 = porColor,
+                Spec2 = porDinero
             };
         }
 
-        public IEnumerable<Product> dameProductos(IEnumerable<Product> products)
+        public IEnumerable<Product> DameProductos(IEnumerable<Product> products)
         {
-            return products.Where(x => isValid(x)).OrderBy(x => x.SafetyStockLevel);
+            return products.Where(IsValid).OrderBy(x => x.SafetyStockLevel);
         }
 
-        public bool isValid(Product _producto)
+        public bool IsValid(Product producto)
         {
-            return especificacion.isValid(_producto);
+            return _especificacion.IsValid(producto);
         }
     }
 }

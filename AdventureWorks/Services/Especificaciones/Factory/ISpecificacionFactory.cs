@@ -4,7 +4,7 @@ namespace AdventureWorks.Services.Especificaciones.Factory
 {
     public interface ISpecificacionFactory
     {
-        IProductSpecification? dameInstancia(EnumeracionEjercicios ejercicio);
+        IProductSpecification? DameInstancia(EnumeracionEjercicios ejercicio);
 
     }
 }

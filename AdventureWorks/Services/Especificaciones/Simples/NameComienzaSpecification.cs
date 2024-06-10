@@ -4,12 +4,12 @@ namespace AdventureWorks.Services.Especificaciones.Simples
 {
     public class NameComienzaSpecification : IProductSpecification
     {
-        public string[]? letras { set; get; }
+        public string[]? Letras { set; get; }
 
-        public bool isValid(Product _producto)
+        public bool IsValid(Product producto)
         {
-            if (letras is not null)
-                return letras.Any(x => _producto.Name.ToUpper().StartsWith(x));
+            if (Letras is not null)
+                return Letras.Any(x => producto.Name.Contains(x,StringComparison.InvariantCultureIgnoreCase));
             else
             {
                 return false;

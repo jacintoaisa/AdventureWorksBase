@@ -26,9 +26,6 @@ public partial class Product
     public string Name { get; set; } = null!;
     [Display(Name="Numero de Producto")]
     [DataType(DataType.PhoneNumber)]
-    /// <summary>
-    /// Unique product identification number.
-    /// </summary>
     public string ProductNumber { get; set; } = null!;
 
     /// <summary>

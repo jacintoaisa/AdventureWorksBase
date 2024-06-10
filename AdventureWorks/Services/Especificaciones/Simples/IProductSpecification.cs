@@ -4,6 +4,6 @@ namespace AdventureWorks.Services.Especificaciones.Simples
 {
     public interface IProductSpecification
     {
-        bool isValid(Product _producto);
+        bool IsValid(Product producto);
     }
 }

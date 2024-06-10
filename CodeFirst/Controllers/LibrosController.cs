@@ -12,21 +12,13 @@ using Microsoft.CodeAnalysis.Operations;
 
 namespace CodeFirst.Controllers
 {
-    public class LibrosController : Controller
+    public class LibrosController(IGenericRepositorio<Libro> context, IGenericRepositorio<Autor> autorContext)
+        : Controller
     {
-        private readonly IGenericRepositorio<Libro> _context;
-        private readonly IGenericRepositorio<Autor> _autorContext;
-
-        public LibrosController(IGenericRepositorio<Libro> context, IGenericRepositorio<Autor> autorContext)
-        {
-            _context = context;
-            _autorContext = autorContext;   
-        }
-
         // GET: Libros
         public async Task<IActionResult> Index()
         {
-            return View(await _context.DameTodos());
+            return View(await context.DameTodos());
         }
 
         // GET: Libros/Details/5
@@ -37,7 +29,7 @@ namespace CodeFirst.Controllers
                 return NotFound();
             }
 
-            var libro = await _context.DameUno((int)id);
+            var libro = await context.DameUno((int)id);
             if (libro == null)
             {
                 return NotFound();
@@ -49,7 +41,7 @@ namespace CodeFirst.Controllers
         // GET: Libros/Create
         public async Task<IActionResult> Create()
         {
-            ViewData["AutorId"] = new SelectList(await _autorContext.DameTodos(), "Id", "NombreCompleto");
+            ViewData["AutorId"] = new SelectList(await autorContext.DameTodos(), "Id", "NombreCompleto");
             return View();
         }
 
@@ -63,7 +55,7 @@ namespace CodeFirst.Controllers
 
             if (ModelState.IsValid)
             {
-                await _context.Agregar(libro);
+                await context.Agregar(libro);
                 return RedirectToAction(nameof(Index));
             }
             return View(libro);
@@ -77,7 +69,7 @@ namespace CodeFirst.Controllers
                 return NotFound();
             }
 
-            var libro = await _context.DameUno((int)id);
+            var libro = await context.DameUno((int)id);
             if (libro == null)
             {
                 return NotFound();
@@ -101,7 +93,7 @@ namespace CodeFirst.Controllers
             {
                 try
                 {
-                    await _context.Modificar(id,libro);
+                    await context.Modificar(id,libro);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -127,7 +119,7 @@ namespace CodeFirst.Controllers
                 return NotFound();
             }
 
-            var libro = await _context.DameUno((int)id);
+            var libro = await context.DameUno((int)id);
 
             if (libro == null)
             {
@@ -142,10 +134,10 @@ namespace CodeFirst.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var libro = await _context.DameUno(id);
+            var libro = await context.DameUno(id);
             if (libro != null)
             {
-                await _context.Borrar(id);
+                await context.Borrar(id);
             }
 
 
@@ -154,7 +146,7 @@ namespace CodeFirst.Controllers
 
         private async Task<bool> LibroExists(int id)
         { 
-            var elemento = await _context.DameTodos();
+            var elemento = await context.DameTodos();
             return (elemento.Any(x=>x.Id == id));
         }
 
@@ -165,7 +157,7 @@ namespace CodeFirst.Controllers
 
         public async Task<IActionResult> Tochos()
         {
-            var filtrado = await _context.Filtra(x => x.NumPaginas > 2);
+            var filtrado = await context.Filtra(x => x.NumPaginas > 2);
             return View("Index",filtrado);
         }
 

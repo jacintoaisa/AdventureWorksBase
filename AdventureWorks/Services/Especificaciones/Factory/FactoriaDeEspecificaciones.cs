@@ -1,12 +1,11 @@
-﻿using AdventureWorks.Models;
-using AdventureWorks.Services.Builders;
+﻿using AdventureWorks.Services.Builders;
 using AdventureWorks.Services.Especificaciones.Simples;
 
 namespace AdventureWorks.Services.Especificaciones.Factory
 {
     public class FactoriaDeEspecificaciones : ISpecificacionFactory
     {
-        public IProductSpecification? dameInstancia(EnumeracionEjercicios ejercicio)
+        public IProductSpecification? DameInstancia(EnumeracionEjercicios ejercicio)
         {
             IProductSpecification? especificacion = null;
             switch (ejercicio)

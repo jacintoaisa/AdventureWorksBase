@@ -7,31 +7,31 @@ namespace AdventureWorks.Services.Builders
 {
     public class Ejercicio03Builder : IProductSpecification, IProductoQuery
     {
-        private IProductSpecification especificacion;
+        private readonly IProductSpecification _especificacion;
 
         public Ejercicio03Builder()
         {
-            IProductSpecification PorInicio = new NameComienzaSpecification()
+            IProductSpecification porInicio = new NameComienzaSpecification()
             {
-                letras = ["A", "B", "C"]
+                Letras = ["A", "B", "C"]
             };
-            IProductSpecification PorContenido = new NameContieneSpecification()
+            IProductSpecification porContenido = new NameContieneSpecification()
             {
-                letras = ["A"]
+                Letras = ["A"]
             };
-            especificacion = new AndSpecification()
+            _especificacion = new AndSpecification()
             {
-                Spec1 = PorInicio,
-                Spec2 = PorContenido
+                Spec1 = porInicio,
+                Spec2 = porContenido
             };
         }
-        public IEnumerable<Product> dameProductos(IEnumerable<Product> products)
+        public IEnumerable<Product> DameProductos(IEnumerable<Product> products)
         {
-            return products.Where(x => especificacion.isValid(x)).OrderBy(x => x.SellStartDate).ThenBy(x => x.Color);
+            return products.Where(x => _especificacion.IsValid(x)).OrderBy(x => x.SellStartDate).ThenBy(x => x.Color);
         }
-        public bool isValid(Product _producto)
+        public bool IsValid(Product producto)
         {
-            return especificacion.isValid(_producto);
+            return _especificacion.IsValid(producto);
         }
     }
 }

@@ -3,28 +3,22 @@ using AdventureWorks.Models;
 
 namespace AdventureWorks.ViewModels
 {
-    public class CreaListaPorColorViewModel : ICreaListaPorColorViewModel
+    public class CreaListaPorColorViewModel(AdventureWorks2016Context context)
+        : ICreaListaPorColorViewModel
     {
-        private readonly AdventureWorks2016Context context;
-        private readonly IProductoPorColorBuilder builder;
 
-        public CreaListaPorColorViewModel(AdventureWorks2016Context context, IProductoPorColorBuilder builder)
-        {
-            this.context = context;
-            this.builder = builder;
-        }
         public async Task<List<ProductoPorColorViewModel>> dameTodosLosColores()
         {
             var ProductosDistintos = from p in context.Products group(p) by p.Color into g
                 select g;
 
-            List<ProductoPorColorViewModel> coleccionADevolver = new();
+            List<ProductoPorColorViewModel> coleccionADevolver = [];
             foreach (var _colorDistinto in ProductosDistintos)
             {
                 ProductoPorColorViewModel ElementoAPoner = 
-                    new() { Color = _colorDistinto.Key , VentasDeProducto = 
-                            new ProductoPorColor01(this.context).
-                                DamePorColor(_colorDistinto.Key).ToList()};
+                    new() { Color = _colorDistinto.Key , VentasDeProducto =
+                            [.. new ProductoPorColor01(context).DamePorColor(_colorDistinto.Key)]
+                    };
                 coleccionADevolver.Add(ElementoAPoner);
             }
             return await Task.Run(()=>coleccionADevolver);

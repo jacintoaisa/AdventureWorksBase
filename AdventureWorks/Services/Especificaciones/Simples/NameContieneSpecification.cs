@@ -4,14 +4,14 @@ namespace AdventureWorks.Services.Especificaciones.Simples
 {
     public class NameContieneSpecification : IProductSpecification
     {
-        public string[]? letras { set; get; }
+        public string[]? Letras { set; get; }
 
-        public bool isValid(Product _producto)
+        public bool IsValid(Product producto)
         {
-            if (letras == null)
+            if (Letras == null)
                 return false;
             else
-                return letras.Any(x => _producto.Name.ToUpper().Contains(x));
+                return Letras.Any(x => producto.Name.Contains(x,StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }

@@ -4,12 +4,12 @@ namespace AdventureWorks.Services.Especificaciones.Simples
 {
     public class SubCategoriaSpecificacion : IProductSpecification
     {
-        public int[]? subcategorias { get; set; }
-        public bool isValid(Product _producto)
+        public int[]? Subcategorias { get; set; }
+        public bool IsValid(Product _producto)
         {
-            if (subcategorias != null)
+            if (Subcategorias != null)
             {
-                return subcategorias.Any(x => x == _producto.ProductSubcategoryId);
+                return Subcategorias.Any(x => x == _producto.ProductSubcategoryId);
             }
             else
             {

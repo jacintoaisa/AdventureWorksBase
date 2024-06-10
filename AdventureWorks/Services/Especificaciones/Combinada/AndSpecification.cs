@@ -8,11 +8,11 @@ namespace AdventureWorks.Services.Especificaciones.Combinada
         public IProductSpecification? Spec1 { get; set; }
         public IProductSpecification? Spec2 { get; set; }
 
-        public bool isValid(Product _producto)
+        public bool IsValid(Product producto)
         {
             if (Spec1 != null && Spec2 != null)
             {
-                return Spec1.isValid(_producto) && Spec2.isValid(_producto);
+                return Spec1.IsValid(producto) && Spec2.IsValid(producto);
             }
 
             return false;

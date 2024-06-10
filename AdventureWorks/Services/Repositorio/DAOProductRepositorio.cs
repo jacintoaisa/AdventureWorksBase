@@ -19,7 +19,7 @@ namespace AdventureWorks.Services.Repositorio
 
         public async Task<List<Product>> DameTodos()
         {
-            List<Product> lista = new();
+            List<Product> lista = [];
             _conexion.Open();
             String sentencia = "SELECT " +
                                "ProductID, Name, ProductNumber, MakeFlag, FinishedGoodsFlag, Color, SafetyStockLevel, ReorderPoint, StandardCost, ListPrice," +
@@ -27,7 +27,7 @@ namespace AdventureWorks.Services.Repositorio
                                "Style, ProductSubcategoryID, ProductModelID, SellStartDate, SellEndDate, DiscontinuedDate, rowguid, ModifiedDate " +
                                "FROM [AdventureWorks2016].[Production].[Product]";
             _comando = new SqlCommand(sentencia, this._conexion);
-            SqlDataReader reader = _comando.ExecuteReader();
+            SqlDataReader reader = await _comando.ExecuteReaderAsync();
             if (reader.HasRows)
             {
                 while (reader.Read())
