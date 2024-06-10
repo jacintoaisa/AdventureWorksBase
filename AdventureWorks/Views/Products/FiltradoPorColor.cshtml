@@ -23,12 +23,15 @@
                 @Html.DisplayFor(modelItem => item.Color)
             </td>
             <td>
-                @foreach (var hijo in item.VentasDeProducto)
+                @if (item.VentasDeProducto != null)
                 {
-                    @Html.DisplayFor(modelItem=> hijo.ProductoVentaId)
-                    @Html.DisplayFor(modelItem=> hijo.ProductName)
-                    @Html.DisplayFor(modelItem=> hijo.unidadesVendidas)
-                    <br/>
+                    @foreach (var hijo in item.VentasDeProducto)
+                    {
+                        @Html.DisplayFor(modelItem => hijo.ProductoVentaId)
+                        @Html.DisplayFor(modelItem => hijo.ProductName)
+                        @Html.DisplayFor(modelItem => hijo.unidadesVendidas)
+                        <br/>
+                    }
                 }
             </td>
             

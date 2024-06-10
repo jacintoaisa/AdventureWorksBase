@@ -4,6 +4,6 @@
     {
         public int Id { get; set; }
         public required string NombreCompleto { get; set; }
-        public virtual ICollection<Libro> Libros { get; set; }
+        public virtual ICollection<Libro>? Libros { get; set; }
     }
 }

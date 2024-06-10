@@ -12,16 +12,17 @@ namespace AdventureWorks.Services.Repositorio
 
         }
 
-        public Product? DameUno(int Id)
+        public async Task<Product?> DameUno(int Id)
         {
-            return _context.Products.Find(Id);
+            return await _context.Products.FindAsync(Id);
         }
 
-        public bool BorrarProducto(int Id)
+        public async Task<bool> BorrarProducto(int Id)
         {
-            if (DameUno(Id) != null)
+            var producto = await DameUno(Id);
+            if (producto != null)
             {
-                _context.Products.Remove(DameUno(Id));
+                _context.Products.Remove(producto);
                 _context.SaveChanges();
                 return true;
             }
@@ -31,9 +32,9 @@ namespace AdventureWorks.Services.Repositorio
             }
         }
 
-        public bool Agregar(Product product)
+        public async Task<bool> Agregar(Product product)
         {
-            if (DameUno(product.ProductId) != null)
+            if (await DameUno(product.ProductId) != null)
             {
 
                 return false;
@@ -41,19 +42,20 @@ namespace AdventureWorks.Services.Repositorio
             else
             {
                 _context.Products.Add(product);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return true;
             }
         }
 
-        public void Modificar(int Id, Product product)
+        public async Task<bool> Modificar(int Id, Product product)
         {
-            var recupera = DameUno(Id);
+            var recupera = await DameUno(Id);
             if (recupera != null)
             {
-                BorrarProducto(Id);
+                await BorrarProducto(Id);
             }
-            Agregar(product);
+            await Agregar(product);
+            return await Task.Run(() => true);
         }
     }
 }

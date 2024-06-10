@@ -145,16 +145,16 @@
                 @Html.DisplayFor(modelItem => item.ModifiedDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProductModel.ProductModelId)
+                @Html.DisplayFor(modelItem => item.ProductModel!.ProductModelId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProductSubcategory.ProductSubcategoryId)
+                @Html.DisplayFor(modelItem => item.ProductSubcategory!.ProductSubcategoryId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SizeUnitMeasureCodeNavigation.UnitMeasureCode)
+                @Html.DisplayFor(modelItem => item.SizeUnitMeasureCodeNavigation!.UnitMeasureCode)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.WeightUnitMeasureCodeNavigation.UnitMeasureCode)
+                @Html.DisplayFor(modelItem => item.WeightUnitMeasureCodeNavigation!.UnitMeasureCode)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |

@@ -15,36 +15,40 @@ namespace CodeFirst.Services.Repositorio
 
         
 
-        public T? DameUno(int Id)
+        public async Task<T?> DameUno(int Id)
         {
-            return _context.Set<T>().Find(Id);
+            return await _context.Set<T>().FindAsync(Id);
         }
 
         public async Task<bool> Borrar(int Id)
         {
-            var elemento = DameUno(Id);
-            _context.Set<T>().Remove(elemento);
-            _context.SaveChanges();
+            var elemento = await DameUno(Id);
+            if (elemento != null)
+            {
+                _context.Set<T>().Remove(elemento);
+                await _context.SaveChangesAsync();
+            }
             //return Task.FromResult(true);
             return true;
         }
 
-        public bool Agregar(T element)
+        public async Task<bool> Agregar(T element)
         {
-            _context.Set<T>().Add(element);
-            _context.SaveChanges();
+            await _context.Set<T>().AddAsync(element);
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public void Modificar(int Id, T element)
+        public async Task<bool> Modificar(int Id, T element)
         {
             _context.Entry(element).State = EntityState.Modified;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+            return await Task.Run(() => true);
         }
 
-        public IEnumerable<T> Filtra(Expression<Func<T, bool>> predicado)
+        public async Task<IEnumerable<T>> Filtra(Expression<Func<T, bool>> predicado)
         {
-            return _context.Set<T>().Where<T>(predicado).ToList();
+            return await _context.Set<T>().Where<T>(predicado).ToListAsync();
         }
 
 

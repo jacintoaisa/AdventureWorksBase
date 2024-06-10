@@ -33,7 +33,7 @@ namespace CodeFirst.Controllers
                 return NotFound();
             }
 
-            var autor = _context.DameUno((int)id);
+            var autor = await _context.DameUno((int)id);
             if (autor == null)
             {
                 return NotFound();
@@ -56,7 +56,7 @@ namespace CodeFirst.Controllers
         public async Task<IActionResult> Create([Bind("Id,NombreCompleto")] Autor autor)
         {
 
-            _context.Agregar(autor);
+            await _context.Agregar(autor);
             return RedirectToAction(nameof(Index));
         }
 
@@ -68,7 +68,7 @@ namespace CodeFirst.Controllers
                 return NotFound();
             }
 
-            var autor = _context.DameUno((int)id);
+            var autor = await _context.DameUno((int)id);
             if (autor == null)
             {
                 return NotFound();
@@ -92,7 +92,7 @@ namespace CodeFirst.Controllers
             {
                 try
                 {
-                    _context.Modificar(autor.Id, autor);
+                    await _context.Modificar(autor.Id, autor);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -118,7 +118,7 @@ namespace CodeFirst.Controllers
                 return NotFound();
             }
 
-            var autor = _context.DameUno((int)id);
+            var autor = await _context.DameUno((int)id);
             if (autor == null)
             {
                 return NotFound();
@@ -132,10 +132,10 @@ namespace CodeFirst.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var autor = _context.DameUno(id);
+            var autor = await _context.DameUno(id);
             if (autor != null)
             {
-                _context.Borrar(id);
+                await _context.Borrar(id);
             }
 
             return RedirectToAction(nameof(Index));

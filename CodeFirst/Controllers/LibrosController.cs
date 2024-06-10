@@ -37,7 +37,7 @@ namespace CodeFirst.Controllers
                 return NotFound();
             }
 
-            var libro = _context.DameUno((int)id);
+            var libro = await _context.DameUno((int)id);
             if (libro == null)
             {
                 return NotFound();
@@ -63,7 +63,7 @@ namespace CodeFirst.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Agregar(libro);
+                await _context.Agregar(libro);
                 return RedirectToAction(nameof(Index));
             }
             return View(libro);
@@ -77,7 +77,7 @@ namespace CodeFirst.Controllers
                 return NotFound();
             }
 
-            var libro = _context.DameUno((int)id);
+            var libro = await _context.DameUno((int)id);
             if (libro == null)
             {
                 return NotFound();
@@ -101,7 +101,7 @@ namespace CodeFirst.Controllers
             {
                 try
                 {
-                    _context.Modificar(id,libro);
+                    await _context.Modificar(id,libro);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -127,7 +127,7 @@ namespace CodeFirst.Controllers
                 return NotFound();
             }
 
-            var libro = _context.DameUno((int)id);
+            var libro = await _context.DameUno((int)id);
 
             if (libro == null)
             {
@@ -142,10 +142,10 @@ namespace CodeFirst.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var libro = _context.DameUno(id);
+            var libro = await _context.DameUno(id);
             if (libro != null)
             {
-                _context.Borrar(id);
+                await _context.Borrar(id);
             }
 
 
@@ -165,7 +165,7 @@ namespace CodeFirst.Controllers
 
         public async Task<IActionResult> Tochos()
         {
-            var filtrado = _context.Filtra(x => x.NumPaginas > 2);
+            var filtrado = await _context.Filtra(x => x.NumPaginas > 2);
             return View("Index",filtrado);
         }
 

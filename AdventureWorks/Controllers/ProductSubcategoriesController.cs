@@ -38,7 +38,7 @@ namespace AdventureWorks.Controllers
                     NombreCategoria = Cat.Name
                 };
 
-            return View(resultado);
+            return await Task.Run(()=>View(resultado));
         }
 
         // GET: ProductSubcategories/Details/5

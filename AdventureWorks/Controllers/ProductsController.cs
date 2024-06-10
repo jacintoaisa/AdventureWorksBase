@@ -46,8 +46,13 @@ namespace AdventureWorks.Controllers
 
             var consulta = await _repositorio.DameTodos();
             var elemento = _factoria.dameInstancia(EnumeracionEjercicios.Ejercicio1);
-            var consultaFinal = (elemento as IProductoQuery).dameProductos(consulta);
-            return View(consultaFinal);
+            if (elemento is not null)
+            {
+                var consultaFinal = (elemento as IProductoQuery)!.dameProductos(consulta);
+                return View(consultaFinal);
+            }
+
+            return View(null);
         }
 
 
@@ -59,7 +64,7 @@ namespace AdventureWorks.Controllers
                 return NotFound();
             }
 
-            var product = _repositorio.DameUno((int)id);
+            var product = await _repositorio.DameUno((int)id);
             if (product == null)
             {
                 return NotFound();
@@ -87,7 +92,7 @@ namespace AdventureWorks.Controllers
         {
             if (ModelState.IsValid)
             {
-                _repositorio.Agregar(product);
+                await _repositorio.Agregar(product);
                 return RedirectToAction(nameof(Index));
             }
             //ViewData["ProductModelId"] = new SelectList(_context.ProductModels, "ProductModelId", "ProductModelId", product.ProductModelId);
@@ -105,7 +110,7 @@ namespace AdventureWorks.Controllers
                 return NotFound();
             }
 
-            var product = _repositorio.DameUno((int)id);
+            var product = await _repositorio.DameUno((int)id);
             if (product == null)
             {
                 return NotFound();
@@ -133,7 +138,7 @@ namespace AdventureWorks.Controllers
             {
                 try
                 {
-                    _repositorio.Modificar(product.ProductId, product);
+                    await _repositorio.Modificar(product.ProductId, product);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -163,7 +168,7 @@ namespace AdventureWorks.Controllers
                 return NotFound();
             }
 
-            var product = _repositorio.DameUno((int)id);
+            var product = await _repositorio.DameUno((int)id);
             if (product == null)
             {
                 return NotFound();
@@ -177,7 +182,7 @@ namespace AdventureWorks.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            _repositorio.BorrarProducto((int)id);
+            await _repositorio.BorrarProducto((int)id);
             return RedirectToAction(nameof(Index));
         }
 

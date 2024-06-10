@@ -55,17 +55,17 @@ namespace AdventureWorks.Services.Repositorio
         }
         public async Task<List<Product>> DameTodos()
         {
-            return listaProductos;
+            return await Task.Run(()=>listaProductos);
         }
 
-        public Product? DameUno(int Id)
+        public async Task<Product?> DameUno(int Id)
         {
-            return this.listaProductos.FirstOrDefault(x=>x.ProductId==Id);
+            return await Task.Run(()=>this.listaProductos.Find(x=>x.ProductId==Id));
         }
 
-        public bool BorrarProducto(int Id)
+        public async Task<bool> BorrarProducto(int Id)
         {
-            Product? productoEncontrado = DameUno(Id);
+            Product? productoEncontrado = await DameUno(Id);
             if (productoEncontrado != null)
             {
                 listaProductos.Remove(productoEncontrado);
@@ -75,16 +75,17 @@ namespace AdventureWorks.Services.Repositorio
             return false;
         }
 
-        public bool Agregar(Product product)
-        {
+        public async Task<bool> Agregar(Product product)
+        { 
             this.listaProductos.Add(product);
-            return true;
+            return await Task.Run(()=>true);
         }
 
-        public void Modificar(int Id, Product product)
+        public async Task<bool> Modificar(int Id, Product product)
         {
-            BorrarProducto(Id);
-            Agregar(product);
+            await BorrarProducto(Id);
+            await Agregar(product);
+            return await Task.Run(() => true);
         }
     }
 }

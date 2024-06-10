@@ -8,7 +8,7 @@ namespace AdventureWorks.Services.Especificaciones.Factory
     {
         public IProductSpecification? dameInstancia(EnumeracionEjercicios ejercicio)
         {
-            IProductSpecification especificacion = null;
+            IProductSpecification? especificacion = null;
             switch (ejercicio)
             {
                 case EnumeracionEjercicios.Ejercicio1:

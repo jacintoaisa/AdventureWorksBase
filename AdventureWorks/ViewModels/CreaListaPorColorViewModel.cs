@@ -27,7 +27,7 @@ namespace AdventureWorks.ViewModels
                                 DamePorColor(_colorDistinto.Key).ToList()};
                 coleccionADevolver.Add(ElementoAPoner);
             }
-            return coleccionADevolver;
+            return await Task.Run(()=>coleccionADevolver);
         }
     }
 }

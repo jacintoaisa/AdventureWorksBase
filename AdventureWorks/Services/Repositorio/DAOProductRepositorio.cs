@@ -1,6 +1,7 @@
 ﻿using AdventureWorks.Models;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace AdventureWorks.Services.Repositorio
 {
@@ -9,14 +10,14 @@ namespace AdventureWorks.Services.Repositorio
         private readonly String CadenaDeConexion =
             "server=(localdb)\\MSSQLLocalDB;database=AdventureWorks2016;Integrated Security=True";
 
-        private readonly SqlConnection _conexion = null;
-        private SqlCommand _comando = null;
+        private readonly SqlConnection _conexion;
+        private SqlCommand? _comando = null;
         public DAOProductRepositorio()
         {
             _conexion = new SqlConnection(CadenaDeConexion);
         }
 
-        public List<Product> DameTodos()
+        public async Task<List<Product>> DameTodos()
         {
             List<Product> lista = new();
             _conexion.Open();
@@ -53,27 +54,27 @@ namespace AdventureWorks.Services.Repositorio
                     lista.Add(miProducto);
                 }
             }
-            return lista;
+            return await Task.Run(()=>lista);
         }
 
-        public Product? DameUno(int Id)
-            {
-                throw new NotImplementedException();
-            }
+        public async Task<Product?> DameUno(int Id)
+        {
+            return await Task.Run(()=>new Product());
+        }
 
-            public bool BorrarProducto(int Id)
-            {
-                throw new NotImplementedException();
-            }
+        public async Task<bool> BorrarProducto(int Id)
+        {
+            return await Task.Run(() => true);
+        }
 
-            public bool Agregar(Product product)
-            {
-                throw new NotImplementedException();
-            }
+        public async Task<bool> Agregar(Product product)
+        {
+            return await Task.Run(() => true);
+        }
 
-            public void Modificar(int Id, Product product)
-            {
-                throw new NotImplementedException();
-            }
+        public async Task<bool> Modificar(int Id, Product product)
+        {
+            return await Task.Run(() => true);
         }
     }
+}
