@@ -23,6 +23,7 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.NombreCompleto)
+                @await Component.InvokeAsync("Libros", item.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
