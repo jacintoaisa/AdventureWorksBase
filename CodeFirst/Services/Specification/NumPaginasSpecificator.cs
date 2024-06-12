@@ -6,7 +6,7 @@ namespace CodeFirst.Services.Specification
     {
         public bool IsValid(Libro element)
         {
-            return (element.NumPaginas > 5);
+            return (element.NumPaginas > 90);
         }
     }
 }

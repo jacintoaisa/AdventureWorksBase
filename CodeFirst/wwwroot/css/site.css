@@ -1,22 +1,249 @@
-html {
-  font-size: 14px;
+.background {
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to right, #FFFFFF, #ECE9E6);
+    display: flex;
+    flex-grow: 1;
+    z-index: -1;
 }
 
+    .background div {
+        position: absolute;
+        border-radius: 100%;
+        height: 0;
+        filter: blur(240vw);
+        opacity: 0.4;
+    }
+
+        .background div:nth-child(1) {
+            background: linear-gradient(132deg, #1FCFC3 0.00%, #1F91CF 100.00%);
+            width: 30%;
+            padding-top: 30%;
+            left: 20%;
+            top: 20%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+        .background div:nth-child(2) {
+            background: linear-gradient(132deg, #0800FF 0.00%, #E32BE3 100.00%);
+            width: 40%;
+            padding-top: 40%;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+        .background div:nth-child(3) {
+            background: linear-gradient(132deg, #1FCFC3 0.00%, #1F91CF 100.00%);
+            width: 30%;
+            padding-top: 30%;
+            left: 80%;
+            top: 80%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
+
+table.cinereousTable {
+    border: 6px solid #948473;
+    background-color: #FFE3C6;
+    width: 100%;
+    text-align: center;
+    -webkit-border-radius: 26px;
+    -moz-border-radius: 26px;
+    border-radius: 26px;
+}
+
+    table.cinereousTable td, table.cinereousTable th {
+        border: 1px solid #948473;
+        padding: 4px 4px;
+    }
+
+    table.cinereousTable tbody td {
+        font-size: 13px;
+    }
+
+    table.cinereousTable thead {
+        background: #948473;
+        background: -moz-linear-gradient(top, #afa396 0%, #9e9081 66%, #948473 100%);
+        background: -webkit-linear-gradient(top, #afa396 0%, #9e9081 66%, #948473 100%);
+        background: linear-gradient(to bottom, #afa396 0%, #9e9081 66%, #948473 100%);
+    }
+
+        table.cinereousTable thead th {
+            font-size: 17px;
+            font-weight: bold;
+            color: #F0F0F0;
+            text-align: left;
+            border-left: 2px solid #948473;
+        }
+
+            table.cinereousTable thead th:first-child {
+                border-left: none;
+            }
+
+    table.cinereousTable tfoot {
+        font-size: 16px;
+        font-weight: bold;
+        color: #F0F0F0;
+        background: #948473;
+        background: -moz-linear-gradient(top, #afa396 0%, #9e9081 66%, #948473 100%);
+        background: -webkit-linear-gradient(top, #afa396 0%, #9e9081 66%, #948473 100%);
+        background: linear-gradient(to bottom, #afa396 0%, #9e9081 66%, #948473 100%);
+    }
+
+        table.cinereousTable tfoot td {
+            font-size: 16px;
+        }
+
+table.purpleHorizon {
+    border: 4px solid #792396;
+    background-color: #555555;
+    width: 350px;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+    table.purpleHorizon td, table.purpleHorizon th {
+        border: 1px solid #555555;
+        padding: 5px 2px;
+    }
+
+    table.purpleHorizon tbody td {
+        font-size: 13px;
+        font-weight: bold;
+        color: #FFFFFF;
+    }
+
+    table.purpleHorizon tr:nth-child(even) {
+        background: #CC3BFC;
+    }
+
+    table.purpleHorizon thead {
+        background: #792396;
+        border-bottom: 4px solid #792396;
+    }
+
+        table.purpleHorizon thead th {
+            font-size: 19px;
+            font-weight: bold;
+            color: #FFFFFF;
+            text-align: left;
+            border-left: 2px solid #792396;
+        }
+
+            table.purpleHorizon thead th:first-child {
+                border-left: none;
+            }
+
+    table.purpleHorizon tfoot {
+        font-size: 13px;
+        font-weight: bold;
+        color: #FFFFFF;
+        background: #CE3CFF;
+        background: -moz-linear-gradient(top, #da6dff 0%, #d34fff 66%, #CE3CFF 100%);
+        background: -webkit-linear-gradient(top, #da6dff 0%, #d34fff 66%, #CE3CFF 100%);
+        background: linear-gradient(to bottom, #da6dff 0%, #d34fff 66%, #CE3CFF 100%);
+        border-top: 5px solid #792396;
+    }
+
+        table.purpleHorizon tfoot td {
+            font-size: 13px;
+        }
+
+        table.purpleHorizon tfoot .links {
+            text-align: right;
+        }
+
+            table.purpleHorizon tfoot .links a {
+                display: inline-block;
+                background: #792396;
+                color: #FFFFFF;
+                padding: 2px 8px;
+                border-radius: 5px;
+            }
+table.redTable {
+    border: 2px solid #A40808;
+    background-color: #EEE7DB;
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    -webkit-border-radius: 26px;
+    -moz-border-radius: 26px;
+    border-radius: 26px;
+}
+
+    table.redTable td, table.redTable th {
+        border: 1px solid #AAAAAA;
+        padding: 3px 2px;
+    }
+
+    table.redTable tbody td {
+        font-size: 13px;
+    }
+
+    table.redTable tr:nth-child(even) {
+        background: #F5C8BF;
+    }
+
+    table.redTable thead {
+        background: #A40808;
+    }
+
+        table.redTable thead th {
+            font-size: 19px;
+            font-weight: bold;
+            color: #FFFFFF;
+            text-align: center;
+            border-left: 2px solid #A40808;
+        }
+
+            table.redTable thead th:first-child {
+                border-left: none;
+            }
+
+    table.redTable tfoot {
+        font-size: 13px;
+        font-weight: bold;
+        color: #FFFFFF;
+        background: #A40808;
+    }
+
+        table.redTable tfoot td {
+            font-size: 13px;
+        }
+
+        table.redTable tfoot .links {
+            text-align: right;
+        }
+
+            table.redTable tfoot .links a {
+                display: inline-block;
+                background: #FFFFFF;
+                color: #A40808;
+                padding: 2px 8px;
+                border-radius: 5px;
+            }

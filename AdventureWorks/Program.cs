@@ -20,10 +20,10 @@ namespace AdventureWorks
             builder.Services.AddScoped<ISpecificacionFactory, FactoriaDeEspecificaciones>();
             builder.Services.AddScoped<IProductoPorColorBuilder, ProductoPorColor01>();
             builder.Services.AddScoped<ICreaListaPorColorViewModel, CreaListaPorColorViewModel > ();
-            builder.Services.AddScoped<IProductoRepositorio, DAOProductRepositorio>();
+            builder.Services.AddScoped<IProductoRepositorio, EFProductoRepositorio>();
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configure the HTTP request pipeline
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");

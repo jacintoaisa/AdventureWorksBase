@@ -1,4 +1,6 @@
-﻿@model IEnumerable<CodeFirst.Models.Autor>
+﻿@using CodeFirst.Services.Specification
+@using Microsoft.Identity.Client
+@model IEnumerable<CodeFirst.Models.Autor>
 
 @{
     ViewData["Title"] = "Index";
@@ -9,28 +11,25 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NombreCompleto)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreCompleto)
-                @await Component.InvokeAsync("Libros", item.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<div>
+    <table class="table redTable">
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <h1>
+                            @Html.DisplayFor(modelItem => item.NombreCompleto)
+                        </h1>
+                        @await Component.InvokeAsync("Libros", new AutorSpecification(item.Id))
+                        @await Component.InvokeAsync("Libros",
+                                 new AndLibroSpecificacion(new AutorSpecification(item.Id),
+                                 new NumPaginasSpecificator()))
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @await Component.InvokeAsync("Libros", new NumPaginasSpecificator())
+</div>

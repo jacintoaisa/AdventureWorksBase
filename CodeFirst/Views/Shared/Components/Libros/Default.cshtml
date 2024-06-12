@@ -1,26 +1,21 @@
 ﻿@model System.Collections.Generic.IEnumerable<CodeFirst.Models.Libro>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Titulo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumPaginas)
-        </th>
-    </tr>
-    </thead>
+<table class="table cinereousTable">
     <tbody>
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumPaginas)
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <h2>
+                        @Html.DisplayFor(modelItem => item.Titulo)
+                    </h2>
+                </td>
+                <td>
+                    <h2>
+                        @Html.DisplayFor(modelItem => item.NumPaginas)
+                    </h2>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
