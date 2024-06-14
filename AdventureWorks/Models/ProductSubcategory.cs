@@ -36,4 +36,9 @@ public partial class ProductSubcategory
     public virtual ProductCategory ProductCategory { get; set; } = null!;
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+
+    public static explicit operator ProductSubcategory(Task<ProductSubcategory?> v)
+    {
+        throw new NotImplementedException();
+    }
 }

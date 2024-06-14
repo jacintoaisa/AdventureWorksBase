@@ -6,32 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AdventureWorks.Models;
+using AdventureWorks.Services.Repositorio;
 using AdventureWorks.ViewModel;
 
 namespace AdventureWorks.Controllers
 {
-    public class ProductSubcategoriesController(AdventureWorks2016Context context) : Controller
+    public class ProductSubcategoriesController(IGenericRepositorio<ProductSubcategory> _subcategorias,
+    IGenericRepositorio<ProductCategory> _categorias) : Controller
     {
         // GET: ProductSubcategories
         public async Task<IActionResult> Index()
         {
-            var adventureWorks2016Context = context.ProductSubcategories.Include(p => p.ProductCategory);
-            return View(await adventureWorks2016Context.ToListAsync());
-        }
-
-        public async Task<IActionResult> Compacta()
-        {
-            var resultado = from SubCat in context.ProductSubcategories
-                join Cat in context.ProductCategories
-                    on SubCat.ProductCategoryId equals Cat.ProductCategoryId
-                select new SubCategoriaViewModel()
-                {
-                    Id = SubCat.ProductSubcategoryId,
-                    NombreSubcategoria = SubCat.Name,
-                    NombreCategoria = Cat.Name
-                };
-
-            return await Task.Run(()=>View(resultado));
+            return View(await _subcategorias.DameTodos());
         }
 
         // GET: ProductSubcategories/Details/5
@@ -42,9 +28,7 @@ namespace AdventureWorks.Controllers
                 return NotFound();
             }
 
-            var productSubcategory = await context.ProductSubcategories
-                .Include(p => p.ProductCategory)
-                .FirstOrDefaultAsync(m => m.ProductSubcategoryId == id);
+            var productSubcategory = await _subcategorias.DameUno((int) id);
             if (productSubcategory == null)
             {
                 return NotFound();
@@ -54,9 +38,9 @@ namespace AdventureWorks.Controllers
         }
 
         // GET: ProductSubcategories/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["ProductCategoryId"] = new SelectList(context.ProductCategories, "ProductCategoryId", "ProductCategoryId");
+            ViewData["ProductCategoryId"] = new SelectList(await _categorias.DameTodos(), "ProductCategoryId", "ProductCategoryId");
             return View();
         }
 
@@ -69,11 +53,10 @@ namespace AdventureWorks.Controllers
         {
             if (ModelState.IsValid)
             {
-                context.Add(productSubcategory);
-                await context.SaveChangesAsync();
+                await _subcategorias.Agregar(productSubcategory);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductCategoryId"] = new SelectList(context.ProductCategories, "ProductCategoryId", "ProductCategoryId", productSubcategory.ProductCategoryId);
+            ViewData["ProductCategoryId"] = new SelectList(await _categorias.DameTodos(), "ProductCategoryId", "ProductCategoryId", productSubcategory.ProductCategoryId);
             return View(productSubcategory);
         }
 
@@ -85,13 +68,13 @@ namespace AdventureWorks.Controllers
                 return NotFound();
             }
 
-            var productSubcategory = await context.ProductSubcategories.FindAsync(id);
-            if (productSubcategory == null)
+            ProductSubcategory? productSubcategorySel = await _subcategorias.DameUno((int)id);
+            if (productSubcategorySel == null)
             {
                 return NotFound();
             }
-            ViewData["ProductCategoryId"] = new SelectList(context.ProductCategories, "ProductCategoryId", "ProductCategoryId", productSubcategory.ProductCategoryId);
-            return View(productSubcategory);
+            ViewData["ProductCategoryId"] = new SelectList(await _categorias.DameTodos(), "ProductCategoryId", "ProductCategoryId", productSubcategorySel.ProductCategoryId);
+            return View(productSubcategorySel);
         }
 
         // POST: ProductSubcategories/Edit/5
@@ -110,12 +93,11 @@ namespace AdventureWorks.Controllers
             {
                 try
                 {
-                    context.Update(productSubcategory);
-                    await context.SaveChangesAsync();
+                    await _subcategorias.Modificar(productSubcategory.ProductSubcategoryId,productSubcategory);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductSubcategoryExists(productSubcategory.ProductSubcategoryId))
+                    if (!await ProductSubcategoryExists(productSubcategory.ProductSubcategoryId))
                     {
                         return NotFound();
                     }
@@ -126,7 +108,7 @@ namespace AdventureWorks.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductCategoryId"] = new SelectList(context.ProductCategories, "ProductCategoryId", "ProductCategoryId", productSubcategory.ProductCategoryId);
+            ViewData["ProductCategoryId"] = new SelectList(await _categorias.DameTodos(), "ProductCategoryId", "ProductCategoryId", productSubcategory.ProductCategoryId);
             return View(productSubcategory);
         }
 
@@ -138,9 +120,8 @@ namespace AdventureWorks.Controllers
                 return NotFound();
             }
 
-            var productSubcategory = await context.ProductSubcategories
-                .Include(p => p.ProductCategory)
-                .FirstOrDefaultAsync(m => m.ProductSubcategoryId == id);
+            ProductSubcategory? productSubcategory = await _subcategorias.DameUno((int)id);
+
             if (productSubcategory == null)
             {
                 return NotFound();
@@ -154,19 +135,18 @@ namespace AdventureWorks.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var productSubcategory = await context.ProductSubcategories.FindAsync(id);
+            var productSubcategory = await _subcategorias.DameUno(id);
             if (productSubcategory != null)
             {
-                context.ProductSubcategories.Remove(productSubcategory);
+                await _subcategorias.Borrar(id);
             }
-
-            await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductSubcategoryExists(int id)
+        private async Task<bool> ProductSubcategoryExists(int id)
         {
-            return context.ProductSubcategories.Any(e => e.ProductSubcategoryId == id);
+            var lista = await _subcategorias.DameTodos();
+            return lista.Any(e => e.ProductSubcategoryId == id);
         }
     }
 }

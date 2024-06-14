@@ -6,22 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AdventureWorks.Models;
+using AdventureWorks.Services.Repositorio;
 
 namespace AdventureWorks.Controllers
 {
-    public class ProductCategoriesController : Controller
+    public class ProductCategoriesController (IGenericRepositorio<ProductCategory> _categorias): Controller
     {
-        private readonly AdventureWorks2016Context _context;
-
-        public ProductCategoriesController(AdventureWorks2016Context context)
-        {
-            _context = context;
-        }
-
         // GET: ProductCategories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ProductCategories.ToListAsync());
+            return View(await _categorias.DameTodos());
         }
 
         // GET: ProductCategories/Details/5
@@ -32,8 +26,7 @@ namespace AdventureWorks.Controllers
                 return NotFound();
             }
 
-            var productCategory = await _context.ProductCategories
-                .FirstOrDefaultAsync(m => m.ProductCategoryId == id);
+            var productCategory = await _categorias.DameUno((int)id);
             if (productCategory == null)
             {
                 return NotFound();
@@ -57,8 +50,7 @@ namespace AdventureWorks.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(productCategory);
-                await _context.SaveChangesAsync();
+                await _categorias.Agregar(productCategory);
                 return RedirectToAction(nameof(Index));
             }
             return View(productCategory);
@@ -72,7 +64,7 @@ namespace AdventureWorks.Controllers
                 return NotFound();
             }
 
-            var productCategory = await _context.ProductCategories.FindAsync(id);
+            var productCategory = await _categorias.DameUno((int)id);
             if (productCategory == null)
             {
                 return NotFound();
@@ -96,12 +88,11 @@ namespace AdventureWorks.Controllers
             {
                 try
                 {
-                    _context.Update(productCategory);
-                    await _context.SaveChangesAsync();
+                    await _categorias.Modificar(productCategory.ProductCategoryId,productCategory);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductCategoryExists(productCategory.ProductCategoryId))
+                    if (!await ProductCategoryExists(productCategory.ProductCategoryId))
                     {
                         return NotFound();
                     }
@@ -123,8 +114,7 @@ namespace AdventureWorks.Controllers
                 return NotFound();
             }
 
-            var productCategory = await _context.ProductCategories
-                .FirstOrDefaultAsync(m => m.ProductCategoryId == id);
+            var productCategory = await _categorias.DameUno((int)id);
             if (productCategory == null)
             {
                 return NotFound();
@@ -138,19 +128,18 @@ namespace AdventureWorks.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var productCategory = await _context.ProductCategories.FindAsync(id);
+            var productCategory = await _categorias.DameUno(id);
             if (productCategory != null)
             {
-                _context.ProductCategories.Remove(productCategory);
+                await _categorias.Borrar(id);
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductCategoryExists(int id)
+        private async Task<bool> ProductCategoryExists(int id)
         {
-            return _context.ProductCategories.Any(e => e.ProductCategoryId == id);
+            var lista = await _categorias.DameTodos();
+            return lista.Any(e => e.ProductCategoryId == id);
         }
     }
 }

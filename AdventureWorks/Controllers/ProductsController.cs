@@ -1,50 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using AdventureWorks.Models;
+﻿using AdventureWorks.Models;
 using AdventureWorks.Services.Repositorio;
 using AdventureWorks.ViewModels;
-using AdventureWorks.Services.Especificaciones.Factory;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace AdventureWorks.Controllers
 {
     public class ProductsController(
-        ISpecificacionFactory factoria,
         ICreaListaPorColorViewModel builderLista,
-        IProductoRepositorio repositorio)
+        IGenericRepositorio<Product> repositorio)
         : Controller
     {
         // GET: Products
         public async Task<IActionResult> Index()
         {
             var consulta = await repositorio.DameTodos();
-            //return View(consultaFinal);
             return View(consulta);
         }
-
-        public async Task<IActionResult> FiltradoPorColor()
-        {
-            return View(await builderLista.dameTodosLosColores()); ;
-        }
-        // GET: Products
-        public async Task<IActionResult> IndexEjercicio01()
-        {
-
-            var consulta = await repositorio.DameTodos();
-            var elemento = factoria.DameInstancia(EnumeracionEjercicios.Ejercicio1);
-            if (elemento is not null)
-            {
-                var consultaFinal = (elemento as IProductoQuery)!.DameProductos(consulta);
-                return View(consultaFinal);
-            }
-
-            return View(null);
-        }
-
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -172,7 +145,7 @@ namespace AdventureWorks.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await repositorio.BorrarProducto((int)id);
+            await repositorio.Borrar((int)id);
             return RedirectToAction(nameof(Index));
         }
 

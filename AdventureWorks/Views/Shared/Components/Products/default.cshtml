@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AdventureWorks.Models.Product>
+﻿@model IEnumerable<AdventureWorks.Views.Shared.Components.Products.ProductsViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -23,59 +23,18 @@
                 @Html.DisplayNameFor(model => model.Color)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SafetyStockLevel)
+                @Html.DisplayNameFor(model => model.ProductSubcategoryID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReorderPoint)
+                @Html.DisplayNameFor(model => model.NombreSubcategoria)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StandardCost)
+                @Html.DisplayNameFor(model => model.ProductCategoryId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ListPrice)
+                @Html.DisplayNameFor(model => model.NombreCategoria)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Weight)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DaysToManufacture)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductLine)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Class)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Style)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SellStartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SellEndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiscontinuedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rowguid)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductModel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductSubcategory)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SizeUnitMeasureCodeNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WeightUnitMeasureCodeNavigation)
-            </th>
+           
         </tr>
     </thead>
     <tbody>
@@ -97,59 +56,18 @@
                 @Html.DisplayFor(modelItem => item.Color)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SafetyStockLevel)
+                @Html.DisplayFor(modelItem => item.ProductSubcategoryID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ReorderPoint)
+                @Html.DisplayFor(modelItem => item.NombreSubcategoria)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StandardCost)
+                @Html.DisplayFor(modelItem => item.ProductCategoryId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ListPrice)
+                @Html.DisplayFor(modelItem => item.NombreCategoria)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Weight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DaysToManufacture)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductLine)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Class)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Style)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SellStartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SellEndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscontinuedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rowguid)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductModel!.ProductModelId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductSubcategory!.ProductSubcategoryId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SizeUnitMeasureCodeNavigation!.UnitMeasureCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WeightUnitMeasureCodeNavigation!.UnitMeasureCode)
-            </td>
+            
         </tr>
 }
     </tbody>

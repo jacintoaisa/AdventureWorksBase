@@ -1,4 +1,5 @@
-﻿@model IEnumerable<AdventureWorks.Models.Product>
+﻿@using AdventureWorks.Services.Especificaciones.Simples
+@model IEnumerable<AdventureWorks.Models.Product>
 
 @{
     ViewData["Title"] = "Index";
@@ -9,7 +10,10 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-@await Component.InvokeAsync("Products", "Red")
-
+@await Component.InvokeAsync("Products",new NameTerminaSpecification()
+    {Letras = ["g"]})
+<hr/>
+@await Component.InvokeAsync("Products", new NameComienzaSpecification()
+{Letras = ["a"]})
 
 
